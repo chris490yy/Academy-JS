@@ -1,23 +1,32 @@
 var fs = require('fs');
 var filename = process.argv[2];
-var readableStream = fs.createReadStream(filename);
-var words = [];
 var count = [0,0,0,0,0,0,0,0];
-var i = 0;
 
-
-readableStream.setEncoding('utf8');
-
-readableStream.on('open', function() {
-    console.log('start to stream');
+fs.exists(filename, (exists) => {
+    if(!exists){
+        console.log('the file is not found');
+    } else{
+        countWords();
+    }
 });
 
-readableStream.on('data', function(chunk) {
-    console.log('in processing data');    
-    words = chunk.split(' ');
-    words.forEach(countLength);
-    resultOutput();
-});
+function countWords() {
+    var readableStream = fs.createReadStream(filename);
+    var words = [];   
+    var i = 0;
+    readableStream.setEncoding('utf8');
+    readableStream.on('open', function() {
+        console.log('start to stream');
+    });
+
+    readableStream.on('data', function(chunk) {
+        console.log('in processing data');    
+        words = chunk.split(' ');
+        words.forEach(countLength);
+        resultOutput();
+    });
+}
+
 
 function resultOutput() {
     console.log('<3: ' + count[2]);
