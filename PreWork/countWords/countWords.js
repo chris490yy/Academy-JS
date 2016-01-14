@@ -12,8 +12,8 @@ fs.exists(filename, (exists) => {
 
 function countWords() {
     var readableStream = fs.createReadStream(filename);
-    var words = [];   
-    var i = 0;
+    var words = [];
+
     readableStream.setEncoding('utf8');
     readableStream.on('open', function() {
         console.log('start to stream');
@@ -35,7 +35,6 @@ function resultOutput() {
     console.log('=5: ' + count[5]);
     console.log('=6: ' + count[6]);
     console.log('>6: ' + count[7]);
-
 }
 
 function countLength(element) {
